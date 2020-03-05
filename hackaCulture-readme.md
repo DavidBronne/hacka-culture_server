@@ -174,7 +174,7 @@ Project model
 | POST        | /auth/signup                 | {firstName, lastName, email, password, location, skills, preferedProject} | 201            | 404          |                                                     |
 | POST        | /auth/login                  | {email, password}                                            | 200            | 404          |                                                     |
 | POST        | /auth/logout                 | N.A.                                                         | 204            | 400          |                                                     |
-| PUT         | /user/edit/:id               | {firstName, lastName, email, password, location, skills,preferedProject} | 200            | 400          |                                                     |
+| PUT         | /user/edit/:id               | {firstName, lastName, email, location, skills,preferedProject} | 200            | 400          |                                                     |
 | DELETE      | /user/:id                    | N.A.                                                         | 200            | 400          |                                                     |
 | GET         | /user/:id                    | N.A.                                                         | 200            | 400          |                                                     |
 | POST        | /project/create              | {projectName, description, githubUrl, location, status, projectCategory, requiredDataSkill, requiredWebdevSkill, requiredUxuiSkill } | 201            | 400          |                                                     |

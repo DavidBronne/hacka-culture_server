@@ -11,8 +11,10 @@ exports.isNotLoggedIn = (req, res, next) => {
 };
 
 exports.validationLogin = (req, res, next) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!username || !password) next(createError(400));
+  if (!email || !password) {
+    console.log('xxxxxx')
+    next(createError(400))}
   else next();
 };

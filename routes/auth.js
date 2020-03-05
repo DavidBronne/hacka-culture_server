@@ -13,17 +13,18 @@ const {
 } = require("../helpers/middlewares");
 
 // POST '/auth/signup'
-router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) => {
-  const { username, password } = req.body;
-
+router.post('/signup', validationLogin, isNotLoggedIn, async (req, res, next) => {
+  const { firstName, lastName, email, password, location, skills, preferedProject } = req.body;
+  
   try {																									 // projection
-    const usernameExists = await User.findOne({ username }, 'username');
+    const emailExists = await User.findOne({ email }, 'email');           // limit response to 'email'
     
-    if (usernameExists) return next(createError(400));
+    if (emailExists) return next(createError(400));
     else {
+      
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashPass = bcrypt.hashSync(password, salt);
-      const newUser = await User.create({ username, password: hashPass });
+      const newUser = await User.create({ firstName, lastName, email, location, skills, preferedProject, password: hashPass });
 
       newUser.password = "*";
       req.session.currentUser = newUser;
@@ -40,9 +41,10 @@ router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) =>
 
 // POST '/auth/login'
 router.post('/login', isNotLoggedIn, validationLogin, async (req, res, next) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   try {
-    const user = await User.findOne({ username }) ;
+    
+    const user = await User.findOne({ email }) ;            
     if (!user) {
       next(createError(404));
     } 
@@ -53,7 +55,7 @@ router.post('/login', isNotLoggedIn, validationLogin, async (req, res, next) => 
       res
         .status(200)
         .json(user);
-    //return;	 			TODO - remove from the notes
+    
     } 
     else {
       next(createError(401));	// Unauthorized
@@ -69,7 +71,7 @@ router.post('/login', isNotLoggedIn, validationLogin, async (req, res, next) => 
 router.post('/logout', isLoggedIn, (req, res, next) => {
   req.session.destroy();
   res
-    .status(204)  //  No Content
+    .status(204).json({message: 'your logged out'})  //  No Content
     .send();
 });
 
