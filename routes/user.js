@@ -72,10 +72,10 @@ router.put('/edit/:id', isLoggedIn, async (req, res, next) => {
 router.delete('/:id', isLoggedIn, async(req, res, next) => {
     
     // check if user trying to edit is the loggedin user
-    if (id != req.session.currentUser._id) {
-        res.status(401).json({message: 'Unauthorized user id'});
-        return;
-    } 
+    // if (id != req.session.currentUser._id) {
+    //     res.status(401).json({message: 'Unauthorized user id'});
+    //     return;
+    // } 
 
     try {
         const { id } = req.params;
