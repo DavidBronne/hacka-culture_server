@@ -71,7 +71,7 @@ router.post('/login', isNotLoggedIn, validationLogin, async (req, res, next) => 
 router.post('/logout', isLoggedIn, (req, res, next) => {
   req.session.destroy();
   res
-    .status(204).json({message: 'your logged out'})  //  No Content
+    .status(204).json({"message": "your logged out"})  //  No Content
     .send();
 });
 
@@ -79,7 +79,7 @@ router.post('/logout', isLoggedIn, (req, res, next) => {
 router.get('/me', isLoggedIn, (req, res, next) => {
   const currentUserSessionData = req.session.currentUser;
   currentUserSessionData.password = '*';
-  
+  console.log('req.session.currentUser._id', req.session.currentUser._id)
   res.status(200).json(currentUserSessionData);
 });
 

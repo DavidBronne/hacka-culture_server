@@ -17,9 +17,9 @@ const userSchema = new Schema(
     initiatorOnProject: [{  type: mongoose.Schema.Types.ObjectId, ref: "Project"}],
     appliedOnProject: [{  type: mongoose.Schema.Types.ObjectId, ref: "Project"}],
     acceptedOnProject: [{  type: mongoose.Schema.Types.ObjectId, ref: "Project"}]
-
+    
   }, 
-  
+
   {
     timestamps: {
       createdAt: 'created_at',

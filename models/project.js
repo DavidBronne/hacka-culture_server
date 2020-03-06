@@ -8,7 +8,7 @@ const projectSchema = new Schema (
         description: {type: String, required: true},
         initiator: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
         
-        githubUrl: {type: String, required: true, unique: true},
+        githubUrl: {type: String, required: true}, //, unique: true
         
         status: {type: String, enum: [ "planning", "execution", "closed"], required: true},
           
@@ -22,7 +22,7 @@ const projectSchema = new Schema (
         
         appliedParticipants: [{  type: mongoose.Schema.Types.ObjectId, ref: "User"}],
         acceptedParticipants: [{  type: mongoose.Schema.Types.ObjectId, ref: "User"}]
-
+        
     },
 
     {
@@ -32,3 +32,7 @@ const projectSchema = new Schema (
         },
       }
 )
+
+const Project = mongoose.model('Project', projectSchema);
+
+module.exports = Project;
