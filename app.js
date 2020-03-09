@@ -33,9 +33,10 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.PUBLIC_DOMAIN, "https://m3-deploy-codealong-hackac.herokuapp.com"]
+    origin: [process.env.PUBLIC_DOMAIN, "http://m3-deploy-codealong-hackac.herokuapp.com"]
   }),
 );
+// http://m3-deploy-codealong-hackac.herokuapp.com/
 // app.use((req, res, next) => {
 //   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 //   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, OPTIONS, DELETE');
