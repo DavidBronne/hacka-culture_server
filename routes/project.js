@@ -3,7 +3,7 @@ const router = express.Router();
 const createError = require("http-errors");
 const mongoose = require('mongoose'); 
 
-const Project = require("../models/Project");
+const Project = require("../models/project");
 const User = require("../models/user");
 
 
