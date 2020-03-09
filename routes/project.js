@@ -24,7 +24,7 @@ router.post('/create', (req, res, next) => {
         requiredWebdevSkill, 
         requiredUxuiSkill 
     } = req.body;
-    console.log('req.body', req.body)
+    console.log('req.body from backend', req.body)
     const  userId  = req.session.currentUser._id;
     console.log('userId', userId)
 

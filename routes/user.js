@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const creatError = require("http-errors");
+const createError = require("http-errors");
 const User = require("../models/user");
 const Project = require("../models/project");
 const mongoose = require('mongoose');
@@ -48,9 +48,9 @@ router.get('/:id', isLoggedIn,  async (req,res,next) => {
 
 // PUT  '/user/edit/:id'
 //      {firstName, lastName, email, location, skills,preferedProject}
-router.put('/edit/:id', isLoggedIn, async (req, res, next) => {
+router.put('/edit', isLoggedIn, async (req, res, next) => {
     try {
-        const { id } = req.params;
+        const { _id } = req.session.currentUser;
         const {firstName, lastName, email, location, skills, preferedProject} = req.body;
     
         //check if user trying to edit is the loggedin user
@@ -60,13 +60,12 @@ router.put('/edit/:id', isLoggedIn, async (req, res, next) => {
         // } 
         
         //Check that required fiels are filled in
-        // || !email || !location || !skills || !preferedProject
         if (!firstName || !lastName || !email || !location || !skills || !preferedProject ) {
             next(createError(400));
         }
         else {
             const updatedUser = await User.findByIdAndUpdate(
-                id,
+                _id,
                 {firstName, lastName, email, location, skills,preferedProject},
                 { new: true}
             );
