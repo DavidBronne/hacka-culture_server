@@ -24,11 +24,13 @@ router.post('/create', (req, res, next) => {
         requiredWebdevSkill, 
         requiredUxuiSkill 
     } = req.body;
+    console.log('Project Creation error')
     console.log('req.body from backend', req.body)
     const  userId  = req.session.currentUser._id;
     console.log('userId', userId)
 
     if ( !projectName || !description || !githubUrl || !location || !status || !projectCategory || !requiredDataSkill || !requiredWebdevSkill || !requiredUxuiSkill) {
+
         return next(createError(400));
     }
     else {
@@ -52,11 +54,13 @@ router.post('/create', (req, res, next) => {
                 { $push: { "initiatorOnProject":projectCreatedId }},
                 { new:true }
                 )
-                .then((updatedUser) => {console.log(updatedUser)})
+                .then((projectCreated) => {
+                    res.status(201).json(projectCreated)
+                })
                 .catch((error) => {console.log(error)})
             })
             .catch((error) => {console.log(error)})
-            res.status(201).json(projectCreated)
+            
         }
     })
     
@@ -125,9 +129,9 @@ router.put('/edit/:id', async (req,res, next) => {
 
     // check current user is initiator of the project
 
-    if ( curentUserId != initiator ) {
+    if ( curentUserId != initiator._id ) {
         console.log('curentUserId', curentUserId)
-        console.log('initiator', initiator)
+        console.log('initiator', initiator._id)
         res.status(401).json({"message":"Unauthorized user"});
         return;
     }  
